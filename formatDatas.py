@@ -1,4 +1,5 @@
 import csv
+import re
 
 
 def readCSV():
@@ -16,17 +17,8 @@ def readCSV():
         for row in read:
             data.append(row)
 
-    # for key, value in enumerate(data[0], data[1]):
-    #     print(key+': '+value)
     keys = data[0]
     data.pop(0)
-
-    # for i in range(len(new_keys[0])):
-    #     if i <= len(data[0]):
-    #         print('keys :' + new_keys[0][i]+' value:'+ data[0][i])
-    #
-    #     else:
-    #         print('Keys:'+(new_keys[0][i]))
 
     # deixa em letra minuscula as variaveis
     for i in range(len(keys)):
@@ -81,9 +73,20 @@ def readCSV():
             if int(dict['co_turno_graduacao']) == 4:
                 dict["varCursoTurnos"].update({'varCursoNoturno': True})
                 del dict['co_turno_graduacao']
+        #print(dict)
+
+    for dict in arrayMap:
+        dict['qeQuestionario'] = {}
+        quest = []
+        dictUpate = dict.items()
+        print(dictUpate)
+        for key in dict:
+            x = re.search('qe_i[0-9]\w+', key)
+            if (x):
+                chave = x.string
+                dict['qeQuestionario'].update({chave: dict[chave]})
+                quest.append(chave)
         print(dict)
-
-
 # def change(dict):
 
 readCSV()
