@@ -7,15 +7,15 @@ def readCSV():
     new_keys = []
     arrayMap = []
     map = {}
-    # with open('Dados/2004exp.csv', 'r', newline='') as file:
-    #     read = csv.reader(file)
-    #     for row in read:
-    #         data.append(row)
-
-    with open('Dados/2018exp.txt', 'r', newline='') as file:
-        read = csv.reader(file, delimiter=';')
+    with open('Dados/2004exp.csv', 'r', newline='') as file:
+        read = csv.reader(file)
         for row in read:
             data.append(row)
+
+    # with open('Dados/2011exp.txt', 'r', newline='') as file:
+    #     read = csv.reader(file, delimiter=';')
+    #     for row in read:
+    #         data.append(row)
 
     keys = data[0]
     data.pop(0)
@@ -80,8 +80,7 @@ def readCSV():
         dict['qeQuestionario'] = {}
         quest = []
         for keys in list(dict.keys()):
-            print(keys)
-            x = re.search('qe_i[0-9]\w+', keys)
+            x = re.search('qe_i\d+', keys)
             if (x):
                 chave = x.string
                 dict['qeQuestionario'].update({chave: dict[chave]})
