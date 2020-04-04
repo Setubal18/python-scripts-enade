@@ -75,17 +75,17 @@ def readCSV():
                 del dict['co_turno_graduacao']
         #print(dict)
 
+    # Formata atributos do questionario em uma dict só
     for dict in arrayMap:
         dict['qeQuestionario'] = {}
         quest = []
-        dictUpate = dict.items()
-        print(dictUpate)
-        for key in dict:
-            x = re.search('qe_i[0-9]\w+', key)
+        for keys in list(dict.keys()):
+            print(keys)
+            x = re.search('qe_i[0-9]\w+', keys)
             if (x):
                 chave = x.string
                 dict['qeQuestionario'].update({chave: dict[chave]})
-                quest.append(chave)
+                del dict[keys]
         print(dict)
 # def change(dict):
 
