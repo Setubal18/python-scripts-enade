@@ -56,3 +56,12 @@ def updatedVars(list:[]):
             list.insert(index, ' ds_vt_ace_oce')
             list.remove('vt_ace_oce')
     return list
+
+
+def lowerVars(keys):
+    for i in range(len(keys)):
+        new_key = keys[i].lower()
+        keys.pop(i)
+        keys.insert(i, new_key)
+    return keys
+

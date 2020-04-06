@@ -1,40 +1,38 @@
 import csv
 import re
-from changeVars import updatedVars
+from changeVars import updatedVars, lowerVars
 
 def readCSV():
     data = []
-    new_keys = []
-    arrayMap = []
-    map = {}
-    with open('Dados/2004exp.csv', 'r', newline='') as file:
-        read = csv.reader(file)
-        for row in read:
-            data.append(row)
+    try:
+        with open('Dados/2018exp.txt', 'r', newline='') as file:
+            read = csv.reader(file, delimiter=';')
+            for row in read:
+                data.append(row)
 
-    # with open('Dados/2011exp.txt', 'r', newline='') as file:
-    #     read = csv.reader(file, delimiter=';')
-    #     for row in read:
-    #         data.append(row)
+    except:
+        with open('Dados/2004exp.csv', 'r', newline='') as file:
+            read = csv.reader(file)
+            for row in read:
+                data.append(row)
 
     keys = data[0]
     data.pop(0)
+    return keys, data
     # deixa em letra minuscula as variaveis
-    for i in range(len(keys)):
-        new_key = keys[i].lower()
-        keys.pop(i)
-        keys.insert(i, new_key)
-    keys = updatedVars(keys)
 
+def transformDict(keys,data):
+    arrayMap = []
     # Transforma o array em um dict
     for array in (data):
         map = {}
         for values in range(len(array)):
             map[keys[values]] = array[values]
         arrayMap.append(map)
+    return arrayMap
 
-    # Transforma formata atributo do turno do curso
-    for dict in (arrayMap):
+def contactAtributos(arrayMap):
+    for dict in arrayMap:
         dict["varCursoTurnos"] = {}
         if 'in_matut' in dict and 'in_vesper' in dict and 'in_noturno' in dict:
             if dict['in_matut'] == 1:
@@ -73,8 +71,9 @@ def readCSV():
             if int(dict['co_turno_graduacao']) == 4:
                 dict["varCursoTurnos"].update({'varCursoNoturno': True})
                 del dict['co_turno_graduacao']
-        #print(dict)
+    return arrayMap
 
+def formatQuestions_qe_i(arrayMap):
     # Formata atributos do questionario em uma dict só
     for dict in arrayMap:
         dict['qeQuestionario'] = {}
@@ -86,5 +85,14 @@ def readCSV():
                 #endAtributo(chave)
                 dict['qeQuestionario'].update({chave: dict[chave]})
                 del dict[keys]
+    return arrayMap
 
-readCSV()
+keys, data = readCSV()
+
+keys = lowerVars(keys)
+keys = updatedVars(keys)
+
+arrayMap = transformDict(keys,data)
+arrayMap = contactAtributos(arrayMap)
+arrayMap = formatQuestions_qe_i(arrayMap)
+print(arrayMap)
