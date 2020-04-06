@@ -2,6 +2,7 @@ import csv
 import re
 from changeVars import updatedVars, lowerVars
 
+
 def readCSV():
     data = []
     try:
@@ -21,7 +22,8 @@ def readCSV():
     return keys, data
     # deixa em letra minuscula as variaveis
 
-def transformDict(keys,data):
+
+def transformDict(keys, data):
     arrayMap = []
     # Transforma o array em um dict
     for array in (data):
@@ -30,6 +32,7 @@ def transformDict(keys,data):
             map[keys[values]] = array[values]
         arrayMap.append(map)
     return arrayMap
+
 
 def contactAtributos(arrayMap):
     for dict in arrayMap:
@@ -73,6 +76,7 @@ def contactAtributos(arrayMap):
                 del dict['co_turno_graduacao']
     return arrayMap
 
+
 def formatQuestions_qe_i(arrayMap):
     # Formata atributos do questionario em uma dict só
     for dict in arrayMap:
@@ -82,17 +86,18 @@ def formatQuestions_qe_i(arrayMap):
             x = re.search('qe_i\d+', keys)
             if (x):
                 chave = x.string
-                #endAtributo(chave)
+                # endAtributo(chave)
                 dict['qeQuestionario'].update({chave: dict[chave]})
                 del dict[keys]
     return arrayMap
+
 
 keys, data = readCSV()
 
 keys = lowerVars(keys)
 keys = updatedVars(keys)
 
-arrayMap = transformDict(keys,data)
+arrayMap = transformDict(keys, data)
 arrayMap = contactAtributos(arrayMap)
 arrayMap = formatQuestions_qe_i(arrayMap)
 print(arrayMap)
