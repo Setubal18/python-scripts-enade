@@ -6,7 +6,7 @@ from changeVars import updatedVars, lowerVars
 def readCSV():
     data = []
     try:
-        with open('Dados/2018exp.txt', 'r', newline='') as file:
+        with open('Dados/2005exp.txt', 'r', newline='') as file:
             read = csv.reader(file, delimiter=';')
             for row in read:
                 data.append(row)
@@ -81,14 +81,46 @@ def formatQuestions_qe_i(arrayMap):
     # Formata atributos do questionario em uma dict só
     for dict in arrayMap:
         dict['qeQuestionario'] = {}
-        quest = []
+        i = 1
         for keys in list(dict.keys()):
             x = re.search('qe_i\d+', keys)
             if (x):
                 chave = x.string
-                # endAtributo(chave)
-                dict['qeQuestionario'].update({chave: dict[chave]})
+                if i < 10:
+                    dict['qeQuestionario'].update(
+                        {'qe_i' + '0' + str(i): dict[chave]}
+                    )
+                    del dict[keys]
+                else:
+                    dict['qeQuestionario'].update(
+                        {'qe_i' + str(i): dict[chave]})
+                    del dict[keys]
+                i += 1
+
+    return arrayMap
+
+
+def formatQuestions_CO_RS(arrayMap):
+    for dict in arrayMap:
+        dict['rsQuestionario'] = {}
+        i = 1
+        for keys in list(dict.keys()):
+            versao_qp = re.search('qp_i\d+', keys)
+            versao_co_rs = re.search('co_rs_i\d+', keys)
+            if (versao_qp):
+                versao_qp = versao_qp.string
+                dict['rsQuestionario'].update(
+                    {' co_rs_i' + str(i): dict[versao_qp]}
+                )
                 del dict[keys]
+                i += 1
+            elif (versao_co_rs):
+                versao_co_rs = versao_co_rs.string
+                dict['rsQuestionario'].update(
+                    {versao_co_rs: dict[versao_co_rs]}
+                )
+                del dict[keys]
+
     return arrayMap
 
 
@@ -100,4 +132,5 @@ keys = updatedVars(keys)
 arrayMap = transformDict(keys, data)
 arrayMap = contactAtributos(arrayMap)
 arrayMap = formatQuestions_qe_i(arrayMap)
-print(arrayMap)
+arrayMap = formatQuestions_CO_RS(arrayMap)
+print('array', arrayMap)
