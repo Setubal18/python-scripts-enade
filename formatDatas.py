@@ -1,6 +1,6 @@
 import csv
 import re
-
+from changeVars import updatedVars
 
 def readCSV():
     data = []
@@ -19,12 +19,12 @@ def readCSV():
 
     keys = data[0]
     data.pop(0)
-
     # deixa em letra minuscula as variaveis
     for i in range(len(keys)):
         new_key = keys[i].lower()
         keys.pop(i)
         keys.insert(i, new_key)
+    keys = updatedVars(keys)
 
     # Transforma o array em um dict
     for array in (data):
@@ -83,9 +83,8 @@ def readCSV():
             x = re.search('qe_i\d+', keys)
             if (x):
                 chave = x.string
+                #endAtributo(chave)
                 dict['qeQuestionario'].update({chave: dict[chave]})
                 del dict[keys]
-        print(dict)
-# def change(dict):
 
 readCSV()
