@@ -6,7 +6,7 @@ from changeVars import updatedVars, lowerVars
 def readCSV():
     data = []
     try:
-        with open('Dados/2005exp.txt', 'r', newline='') as file:
+        with open('Dados/2017exp.txt', 'r', newline='') as file:
             read = csv.reader(file, delimiter=';')
             for row in read:
                 data.append(row)
@@ -35,6 +35,11 @@ def transformDict(keys, data):
 
 
 def contactAtributos(arrayMap):
+    arrayMap = patternTurnos(arrayMap)
+    return arrayMap
+
+
+def patternTurnos(arrayMap):
     for dict in arrayMap:
         dict["varCursoTurnos"] = {}
         if 'in_matut' in dict and 'in_vesper' in dict and 'in_noturno' in dict:
@@ -64,14 +69,14 @@ def contactAtributos(arrayMap):
                 print(dict['co_turno_graduacao'])
                 dict["varCursoTurnos"].update({'varCursoMatutino': True})
                 del dict['co_turno_graduacao']
-            if int(dict['co_turno_graduacao']) == 2:
+            elif int(dict['co_turno_graduacao']) == 2:
                 print(dict['co_turno_graduacao'])
                 dict["varCursoTurnos"].update({'varCursoVespertino': True})
                 del dict['co_turno_graduacao']
-            if int(dict['co_turno_graduacao']) == 3:
+            elif int(dict['co_turno_graduacao']) == 3:
                 dict["varCursoTurnos"].update({'varCursoIntegral': True})
                 del dict['co_turno_graduacao']
-            if int(dict['co_turno_graduacao']) == 4:
+            elif int(dict['co_turno_graduacao']) == 4:
                 dict["varCursoTurnos"].update({'varCursoNoturno': True})
                 del dict['co_turno_graduacao']
     return arrayMap
