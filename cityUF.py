@@ -11,3 +11,4 @@ def patternUFs(array):
             dict.update({'co_uf_curso': ufs.get(int(ufcode))})
         except:
             pass
+    return array
