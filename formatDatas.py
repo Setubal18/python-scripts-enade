@@ -7,7 +7,7 @@ from changeVars import updatedVars, lowerVars
 def readCSV():
     data = []
     try:
-        with open('Dados/2017exp.txt', 'r', newline='') as file:
+        with open('Dados/2018exp.txt', 'r', newline='') as file:
             read = csv.reader(file, delimiter=';')
             for row in read:
                 data.append(row)
@@ -135,10 +135,10 @@ keys, data = readCSV()
 keys = lowerVars(keys)
 keys = updatedVars(keys)
 
-arrayMap = transformDict(keys, data)
-arrayMap = contactAtributos(arrayMap)
-arrayMap = formatQuestions_qe_i(arrayMap)
-arrayMap = formatQuestions_CO_RS(arrayMap)
-print(patternUFs(arrayMap))
-print('array', arrayMap)
-print('array', len(arrayMap))
+enadeData = transformDict(keys, data)
+enadeData = contactAtributos(enadeData)
+enadeData = formatQuestions_qe_i(enadeData)
+enadeData = formatQuestions_CO_RS(enadeData)
+patternUFs(enadeData)
+print('array', enadeData)
+print('array', len(enadeData))

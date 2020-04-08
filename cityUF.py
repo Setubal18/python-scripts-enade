@@ -7,7 +7,7 @@ ufs = {11: 'RO', 12: 'AC', 13: 'AM', 14: 'RR', 15: 'PA', 16: 'AP', 17: 'TO', 21:
 def patternUFs(array):
     for dict in array:
         ufcode = dict.get('co_uf_curso')
-        print(ufs.get(int(ufcode)))
-        dict.update({'co_uf_curso': ufs.get(int(ufcode))})
-        if ufcode == ufs.get(int(ufcode)):
-            print(ufcode[ufcode])
+        try:
+            dict.update({'co_uf_curso': ufs.get(int(ufcode))})
+        except:
+            pass
