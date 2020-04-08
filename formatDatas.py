@@ -7,11 +7,10 @@ from changeVars import updatedVars, lowerVars
 def readCSV():
     data = []
     try:
-        with open('Dados/2018exp.txt', 'r', newline='') as file:
+        with open('Dados/2004exp.txt', 'r', newline='') as file:
             read = csv.reader(file, delimiter=';')
             for row in read:
                 data.append(row)
-
     except:
         with open('Dados/2004exp.csv', 'r', newline='') as file:
             read = csv.reader(file)
@@ -24,15 +23,21 @@ def readCSV():
     # deixa em letra minuscula as variaveis
 
 
-def transformDict(keys, data):
+def transformDict(keys, data1):
     arrayMap = []
-    # Transforma o array em um dict
-    for array in (data):
+    for array in (data1):
         map = {}
         for values in range(len(array)):
             map[keys[values]] = array[values]
         arrayMap.append(map)
     return arrayMap
+
+
+def generateCode(arrayMaps):
+    for index in range(len(arrayMaps)):
+        dict = arrayMaps[index]
+        dict['index'] = dict.get('nu_ano') + str(index)
+    return arrayMaps
 
 
 def contactAtributos(arrayMap):
@@ -134,11 +139,11 @@ keys, data = readCSV()
 
 keys = lowerVars(keys)
 keys = updatedVars(keys)
-
 enadeData = transformDict(keys, data)
 enadeData = contactAtributos(enadeData)
 enadeData = formatQuestions_qe_i(enadeData)
 enadeData = formatQuestions_CO_RS(enadeData)
-patternUFs(enadeData)
+enadeData = generateCode(enadeData)
+enadeData = patternUFs(enadeData)
 print('array', enadeData)
 print('array', len(enadeData))
