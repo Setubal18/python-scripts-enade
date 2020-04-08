@@ -1,5 +1,6 @@
 import csv
 import re
+from cityUF import patternUFs
 from changeVars import updatedVars, lowerVars
 
 
@@ -138,4 +139,6 @@ arrayMap = transformDict(keys, data)
 arrayMap = contactAtributos(arrayMap)
 arrayMap = formatQuestions_qe_i(arrayMap)
 arrayMap = formatQuestions_CO_RS(arrayMap)
+print(patternUFs(arrayMap))
 print('array', arrayMap)
+print('array', len(arrayMap))
