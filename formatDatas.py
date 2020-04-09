@@ -91,19 +91,19 @@ def patternTurnos(arrayMap):
 def formatQuestions_qe_i(arrayMap):
     # Formata atributos do questionario em uma dict só
     for dict in arrayMap:
-        dict['qeQuestionario'] = {}
+        dict['qe_Questionario'] = {}
         i = 1
         for keys in list(dict.keys()):
             x = re.search('qe_i\d+', keys)
             if (x):
                 chave = x.string
                 if i < 10:
-                    dict['qeQuestionario'].update(
+                    dict['qe_Questionario'].update(
                         {'qe_i' + '0' + str(i): dict[chave]}
                     )
                     del dict[keys]
                 else:
-                    dict['qeQuestionario'].update(
+                    dict['qe_Questionario'].update(
                         {'qe_i' + str(i): dict[chave]})
                     del dict[keys]
                 i += 1
@@ -113,22 +113,54 @@ def formatQuestions_qe_i(arrayMap):
 
 def formatQuestions_CO_RS(arrayMap):
     for dict in arrayMap:
-        dict['rsQuestionario'] = {}
+        dict['rs_Questionario'] = {}
         i = 1
         for keys in list(dict.keys()):
             versao_qp = re.search('qp_i\d+', keys)
             versao_co_rs = re.search('co_rs_i\d+', keys)
             if (versao_qp):
                 versao_qp = versao_qp.string
-                dict['rsQuestionario'].update(
+                dict['rs_Questionario'].update(
                     {' co_rs_i' + str(i): dict[versao_qp]}
                 )
                 del dict[keys]
                 i += 1
             elif (versao_co_rs):
                 versao_co_rs = versao_co_rs.string
-                dict['rsQuestionario'].update(
+                dict['rs_Questionario'].update(
                     {versao_co_rs: dict[versao_co_rs]}
+                )
+                del dict[keys]
+
+    return arrayMap
+
+
+def formatQuestions_nt_ce(arrayMap):
+    global versao_co_rs
+    for dict in arrayMap:
+        dict['nt_ce_Questionario'] = {}
+        for keys in list(dict.keys()):
+            nt_ce = re.search('nt_ce_d\d+', keys)
+            if nt_ce:
+                nt_ce = nt_ce.string
+                dict['nt_ce_Questionario'].update(
+                    {keys: dict[nt_ce]}
+                )
+                del dict[keys]
+
+    return arrayMap
+
+
+def formatQuestions_tp_sce(arrayMap):
+    global versao_co_rs
+    for dict in arrayMap:
+        dict['tp_sce_Questionario'] = {}
+        for keys in list(dict.keys()):
+            tp_sce_d = re.search('tp_sce_d\d+', keys)
+            if tp_sce_d:
+                tp_sce_d = tp_sce_d.string
+                dict['tp_sce_Questionario'].update(
+                    {keys: dict[tp_sce_d]}
                 )
                 del dict[keys]
 
@@ -143,6 +175,9 @@ enadeData = transformDict(keys, data)
 enadeData = contactAtributos(enadeData)
 enadeData = formatQuestions_qe_i(enadeData)
 enadeData = formatQuestions_CO_RS(enadeData)
+enadeData = formatQuestions_nt_ce(enadeData)
+enadeData = formatQuestions_tp_sce(enadeData)
+
 enadeData = generateCode(enadeData)
 enadeData = patternUFs(enadeData)
 print('array', enadeData)
