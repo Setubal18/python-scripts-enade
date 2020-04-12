@@ -1,11 +1,14 @@
 from pymongo import MongoClient
-from formatDatas import execute
 
-db = client.proictHomol
-enade_collentions = db.enadeRespostas
+from settings import MONGO_URI, DATABASE, COLLECTION
+from standardization_of_data import execute
+
+client = MongoClient(MONGO_URI)
+db = client[DATABASE]
+enade_collentions = db[COLLECTION]
 
 
-def readData():
+def receiveData():
     dados = execute()
     print(dados)
     for dict in dados:
@@ -19,4 +22,4 @@ def create(dict):
         print('Já existe')
 
 
-readData()
+receiveData()

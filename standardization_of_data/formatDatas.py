@@ -1,21 +1,22 @@
 import csv
 import re
-from cityUF import patternUFs
-from changeVars import updatedVars, lowerVars
+
+from .changeVars import updatedVars, lowerVars
+from .cityUF import patternUFs
 
 
 def readCSV():
     data = []
     try:
         print('try')
-        with open('Dados/2005exp.txt', 'r', newline='') as file:
+        with open('Dados/2005exp.csv', 'r', newline='') as file:
             read = csv.reader(file, delimiter=';')
             for row in read:
                 data.append(row)
 
     except:
         print('except')
-        with open('Dados/2004exp.csv', 'r', newline='') as file:
+        with open('../Dados/2004exp.csv', 'r', newline='') as file:
             read = csv.reader(file)
             for row in read:
                 data.append(row)
