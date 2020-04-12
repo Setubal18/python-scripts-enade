@@ -8,7 +8,7 @@ def readCSV():
     data = []
     try:
         print('try')
-        with open('Dados/2004exp.txt', 'r', newline='') as file:
+        with open('Dados/2005exp.txt', 'r', newline='') as file:
             read = csv.reader(file, delimiter=';')
             for row in read:
                 data.append(row)
@@ -185,6 +185,3 @@ def execute():
     enadeData = generateCode(enadeData)
     enadeData = patternUFs(enadeData)
     return enadeData
-
-
-print(execute())
