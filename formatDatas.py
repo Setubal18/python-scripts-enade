@@ -7,11 +7,14 @@ from changeVars import updatedVars, lowerVars
 def readCSV():
     data = []
     try:
+        print('try')
         with open('Dados/2004exp.txt', 'r', newline='') as file:
             read = csv.reader(file, delimiter=';')
             for row in read:
                 data.append(row)
+
     except:
+        print('except')
         with open('Dados/2004exp.csv', 'r', newline='') as file:
             read = csv.reader(file)
             for row in read:
@@ -167,18 +170,21 @@ def formatQuestions_tp_sce(arrayMap):
     return arrayMap
 
 
-keys, data = readCSV()
+def execute():
+    keys, data = readCSV()
 
-keys = lowerVars(keys)
-keys = updatedVars(keys)
-enadeData = transformDict(keys, data)
-enadeData = contactAtributos(enadeData)
-enadeData = formatQuestions_qe_i(enadeData)
-enadeData = formatQuestions_CO_RS(enadeData)
-enadeData = formatQuestions_nt_ce(enadeData)
-enadeData = formatQuestions_tp_sce(enadeData)
+    keys = lowerVars(keys)
+    keys = updatedVars(keys)
+    enadeData = transformDict(keys, data)
+    enadeData = contactAtributos(enadeData)
+    enadeData = formatQuestions_qe_i(enadeData)
+    enadeData = formatQuestions_CO_RS(enadeData)
+    enadeData = formatQuestions_nt_ce(enadeData)
+    enadeData = formatQuestions_tp_sce(enadeData)
 
-enadeData = generateCode(enadeData)
-enadeData = patternUFs(enadeData)
-print('array', enadeData)
-print('array', len(enadeData))
+    enadeData = generateCode(enadeData)
+    enadeData = patternUFs(enadeData)
+    return enadeData
+
+
+print(execute())

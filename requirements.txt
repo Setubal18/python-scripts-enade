@@ -1,0 +1,5 @@
+certifi==2020.4.5.1
+lxml==4.5.0
+wincertstore==0.2
+xlrd==1.2.0
+XlsxWriter==1.2.8
