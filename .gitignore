@@ -11,6 +11,8 @@
 /Variaveis dos Dados/
 /Dados/
 .idea/
+.settings.py
+.env
 
 
 # User-specific stuff
