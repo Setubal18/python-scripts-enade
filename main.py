@@ -1,4 +1,4 @@
-from database import create_one
+from database import create_many
 from standardization_of_data import execute
 
 
@@ -7,10 +7,11 @@ def main():
     dados = execute(path)
     print('Tamanho dos dados:', )
     number = 0
-    for dict in dados:
-        create_one(dict)
-        number = number + 1
-        print('Já foi', number, ' Faltam :', str(len(dados) - number))
+    create_many(dados)
+    # for dict in dados:
+    #     create_one(dict)
+    #     number = number + 1
+    #     print('Já foi', number, ' Faltam :', str(len(dados) - number))
 
 
 i = 1

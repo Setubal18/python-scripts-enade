@@ -11,3 +11,7 @@ def create_one(dict):
         enade_collentions.insert_one(dict)
     else:
         print('Já existe')
+
+def create_many(dict):
+    enade_collentions.insert_many(dict)
+    print('Feito')
