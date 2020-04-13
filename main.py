@@ -1,12 +1,16 @@
-from database import create
+from database import create_one
 from standardization_of_data import execute
 
 
 def main():
     path = input('Digite o caminho do arquivo :')
     dados = execute(path)
+    print('Tamanho dos dados:', )
+    number = 0
     for dict in dados:
-        create(dict)
+        create_one(dict)
+        number = number + 1
+        print('Já foi', number, ' Faltam :', str(len(dados) - number))
 
 
 i = 1

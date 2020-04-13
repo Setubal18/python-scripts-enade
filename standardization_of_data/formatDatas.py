@@ -178,16 +178,24 @@ def formatQuestions_tp_sce(arrayMap):
 
 def execute(path):
     keys, data = readArchive(path)
-    print(data)
+    print('Terminou de ler o arquivo...')
     keys = lowerVars(keys)
     keys = updatedVars(keys)
+    print('Terminou de padronizar as variaveis...')
     enadeData = transformDict(keys, data)
+    print('Transformou em Dicionarios...')
     enadeData = contactAtributos(enadeData)
+    print('Transformou em Atributos de turno em objeto...')
     enadeData = formatQuestions_qe_i(enadeData)
+    print('Formatou questões de QE...')
     enadeData = formatQuestions_CO_RS(enadeData)
+    print('Formatou questões de CO_RS...')
     enadeData = formatQuestions_nt_ce(enadeData)
+    print('Formatou questões de NT_CE...')
     enadeData = formatQuestions_tp_sce(enadeData)
-
+    print('Formatou questões de TP_SCE...')
     enadeData = generateCode(enadeData)
+    print('Gerou códico único...')
     enadeData = patternUFs(enadeData)
+    print('Padronizou UFs')
     return enadeData
