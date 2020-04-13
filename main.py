@@ -4,7 +4,7 @@ from standardization_of_data import execute
 
 def main():
     path = input('Digite o caminho do arquivo :')
-    choose = input('Deseja cadastrar varios de uma vez? (y/n)')
+    choose = input('Deseja cadastrar varios de uma vez? (y/n) :')
     dados = execute(path)
     print('Tamanho dos dados:', dados)
     if choose.lower() == 'n':
@@ -14,7 +14,7 @@ def main():
 
 
 i = 'y'
-while i.lower() == 'n':
+while i.lower() == 'y':
     main()
     print('Deseja salvar outro arquivo?(y = sim n = não)')
     i = input('(y/n) = ')
