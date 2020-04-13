@@ -1,1 +1,1 @@
-from .saveOnDataBase import create_one
+from .saveOnDataBase import create_one, create_many
