@@ -1,21 +1,20 @@
-from database import create_many
+from database import create_many, create_one
 from standardization_of_data import execute
 
 
 def main():
     path = input('Digite o caminho do arquivo :')
+    choose = input('Deseja cadastrar varios de uma vez? (y/n)')
     dados = execute(path)
-    print('Tamanho dos dados:', )
-    number = 0
-    create_many(dados)
-    # for dict in dados:
-    #     create_one(dict)
-    #     number = number + 1
-    #     print('Já foi', number, ' Faltam :', str(len(dados) - number))
+    print('Tamanho dos dados:', dados)
+    if choose.lower() == 'n':
+        create_one(dados)
+    elif choose.lower() == 'y':
+        create_many(dados)
 
 
-i = 1
-while i != 0:
+i = 'y'
+while i.lower() == 'n':
     main()
-    print('Deseja salvar outro arquivo?(1 = sim 0 = não)')
-    i = input('(1/0) = ')
+    print('Deseja salvar outro arquivo?(y = sim n = não)')
+    i = input('(y/n) = ')
