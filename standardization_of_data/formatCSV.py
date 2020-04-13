@@ -1,6 +1,7 @@
-import xlrd
 import csv
-import pyexcel_ods3 as pods
+
+import xlrd
+
 
 def readPlan(arq1):
     data = []

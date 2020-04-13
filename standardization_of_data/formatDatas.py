@@ -1,26 +1,35 @@
 import csv
 import re
-from cityUF import patternUFs
-from changeVars import updatedVars, lowerVars
+
+from .changeVars import updatedVars, lowerVars
+from .cityUF import patternUFs
 
 
-def readCSV():
+def readArchive(rota):
     data = []
     try:
-        with open('Dados/2004exp.txt', 'r', newline='') as file:
-            read = csv.reader(file, delimiter=';')
-            for row in read:
-                data.append(row)
-    except:
-        with open('Dados/2004exp.csv', 'r', newline='') as file:
-            read = csv.reader(file)
-            for row in read:
-                data.append(row)
+        print('try')
+        if rota.endswith('.csv'):
+            with open(rota, 'r', newline='') as file:
+                read = csv.reader(file, delimiter=';')
+                for row in read:
+                    data.append(row)
+            file.close()
+            keys = data[0]
+            data.pop(0)
+            return keys, data
 
-    keys = data[0]
-    data.pop(0)
-    return keys, data
-    # deixa em letra minuscula as variaveis
+        elif rota.endswith('.txt'):
+            with open(rota, 'r', newline='') as file:
+                read = csv.reader(file)
+                for row in read:
+                    data.append(row)
+            file.close()
+            keys = data[0]
+            data.pop(0)
+            return keys, data
+    except:
+        print('Formato invalido')
 
 
 def transformDict(keys, data1):
@@ -167,18 +176,18 @@ def formatQuestions_tp_sce(arrayMap):
     return arrayMap
 
 
-keys, data = readCSV()
+def execute(path):
+    keys, data = readArchive(path)
+    print(data)
+    keys = lowerVars(keys)
+    keys = updatedVars(keys)
+    enadeData = transformDict(keys, data)
+    enadeData = contactAtributos(enadeData)
+    enadeData = formatQuestions_qe_i(enadeData)
+    enadeData = formatQuestions_CO_RS(enadeData)
+    enadeData = formatQuestions_nt_ce(enadeData)
+    enadeData = formatQuestions_tp_sce(enadeData)
 
-keys = lowerVars(keys)
-keys = updatedVars(keys)
-enadeData = transformDict(keys, data)
-enadeData = contactAtributos(enadeData)
-enadeData = formatQuestions_qe_i(enadeData)
-enadeData = formatQuestions_CO_RS(enadeData)
-enadeData = formatQuestions_nt_ce(enadeData)
-enadeData = formatQuestions_tp_sce(enadeData)
-
-enadeData = generateCode(enadeData)
-enadeData = patternUFs(enadeData)
-print('array', enadeData)
-print('array', len(enadeData))
+    enadeData = generateCode(enadeData)
+    enadeData = patternUFs(enadeData)
+    return enadeData
