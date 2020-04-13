@@ -6,7 +6,7 @@ def main():
     path = input('Digite o caminho do arquivo :')
     choose = input('Deseja cadastrar varios de uma vez? (y/n) :')
     dados = execute(path)
-    print('Tamanho dos dados:', dados)
+    print('Tamanho dos dados:', len(dados))
     if choose.lower() == 'n':
         create_one(dados)
     elif choose.lower() == 'y':
