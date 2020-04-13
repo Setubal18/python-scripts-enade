@@ -21,7 +21,7 @@ def readArchive(rota):
 
         elif rota.endswith('.txt'):
             with open(rota, 'r', newline='') as file:
-                read = csv.reader(file)
+                read = csv.reader(file, delimiter=';')
                 for row in read:
                     data.append(row)
             file.close()
