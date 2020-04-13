@@ -5,26 +5,31 @@ from .changeVars import updatedVars, lowerVars
 from .cityUF import patternUFs
 
 
-def readCSV():
+def readArchive(rota):
     data = []
     try:
         print('try')
-        with open('Dados/2005exp.csv', 'r', newline='') as file:
-            read = csv.reader(file, delimiter=';')
-            for row in read:
-                data.append(row)
+        if rota.endswith('.csv'):
+            with open(rota, 'r', newline='') as file:
+                read = csv.reader(file, delimiter=';')
+                for row in read:
+                    data.append(row)
+            file.close()
+            keys = data[0]
+            data.pop(0)
+            return keys, data
 
+        elif rota.endswith('.txt'):
+            with open(rota, 'r', newline='') as file:
+                read = csv.reader(file)
+                for row in read:
+                    data.append(row)
+            file.close()
+            keys = data[0]
+            data.pop(0)
+            return keys, data
     except:
-        print('except')
-        with open('../Dados/2004exp.csv', 'r', newline='') as file:
-            read = csv.reader(file)
-            for row in read:
-                data.append(row)
-
-    keys = data[0]
-    data.pop(0)
-    return keys, data
-    # deixa em letra minuscula as variaveis
+        print('Formato invalido')
 
 
 def transformDict(keys, data1):
@@ -171,9 +176,9 @@ def formatQuestions_tp_sce(arrayMap):
     return arrayMap
 
 
-def execute():
-    keys, data = readCSV()
-
+def execute(path):
+    keys, data = readArchive(path)
+    print(data)
     keys = lowerVars(keys)
     keys = updatedVars(keys)
     enadeData = transformDict(keys, data)
