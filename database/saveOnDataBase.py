@@ -6,7 +6,6 @@ client = MongoClient(MONGO_URI)
 db = client[DATABASE]
 enade_collentions = db[COLLECTION]
 
-
 def create_one(dados):
     number = 0
     for dict in dados:

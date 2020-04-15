@@ -58,42 +58,50 @@ def patternTurnos(arrayMap):
     for dict in arrayMap:
         dict["varCursoTurnos"] = {}
         if 'in_matut' in dict and 'in_vesper' in dict and 'in_noturno' in dict:
-            if dict['in_matut'] == 1:
-                dict["varCursoTurnos"].update({'varCursoMatutino': True})
-                del dict['in_matut']
-            else:
-                dict["varCursoTurnos"].update({'varCursoMatutino': False})
-                del dict['in_matut']
+            try:
+                if int(dict['in_matut']) == 1:
+                    dict["varCursoTurnos"].update({'varCursoMatutino': True})
+                    del dict['in_matut']
+                else:
+                    dict["varCursoTurnos"].update({'varCursoMatutino': False})
+                    del dict['in_matut']
 
-            if dict['in_vesper'] == 1:
-                dict["varCursoTurnos"].update({'varCursoVespertino': True})
-                del dict['in_vesper']
-            else:
-                dict["varCursoTurnos"].update({'varCursoVespertino': False})
-                del dict['in_vesper']
+                if int(dict['in_vesper']) == 1:
+                    dict["varCursoTurnos"].update({'varCursoVespertino': True})
+                    del dict['in_vesper']
+                else:
+                    dict["varCursoTurnos"].update({'varCursoVespertino': False})
+                    del dict['in_vesper']
 
-            if dict['in_noturno'] == 1:
-                dict["varCursoTurnos"].update({'varCursoNoturno': True})
+                if int(dict['in_noturno']) == 1:
+                    dict["varCursoTurnos"].update({'varCursoNoturno': True})
+                    del dict['in_noturno']
+                else:
+                    dict["varCursoTurnos"].update({'varCursoNoturno': False})
+                    del dict['in_noturno']
+
+            except ValueError:
+                dict["varCursoTurnos"].update({'faltandoTurno': True})
                 del dict['in_noturno']
-            else:
-                dict["varCursoTurnos"].update({'varCursoNoturno': False})
-                del dict['in_noturno']
+                del dict['in_vesper']
+                del dict['in_matut']
 
         if 'co_turno_graduacao' in dict:
-            if int(dict['co_turno_graduacao']) == 1:
-                print(dict['co_turno_graduacao'])
-                dict["varCursoTurnos"].update({'varCursoMatutino': True})
-                del dict['co_turno_graduacao']
-            elif int(dict['co_turno_graduacao']) == 2:
-                print(dict['co_turno_graduacao'])
-                dict["varCursoTurnos"].update({'varCursoVespertino': True})
-                del dict['co_turno_graduacao']
-            elif int(dict['co_turno_graduacao']) == 3:
-                dict["varCursoTurnos"].update({'varCursoIntegral': True})
-                del dict['co_turno_graduacao']
-            elif int(dict['co_turno_graduacao']) == 4:
-                dict["varCursoTurnos"].update({'varCursoNoturno': True})
-                del dict['co_turno_graduacao']
+            try:
+                if int(dict['co_turno_graduacao']) == 1:
+                    dict["varCursoTurnos"].update({'varCursoMatutino': True})
+                    del dict['co_turno_graduacao']
+                elif int(dict['co_turno_graduacao']) == 2:
+                    dict["varCursoTurnos"].update({'varCursoVespertino': True})
+                    del dict['co_turno_graduacao']
+                elif int(dict['co_turno_graduacao']) == 3:
+                    dict["varCursoTurnos"].update({'varCursoIntegral': True})
+                    del dict['co_turno_graduacao']
+                elif int(dict['co_turno_graduacao']) == 4:
+                    dict["varCursoTurnos"].update({'varCursoNoturno': True})
+                    del dict['co_turno_graduacao']
+            except ValueError:
+                dict["varCursoTurnos"].update({'faltandoTurno': True})
     return arrayMap
 
 
